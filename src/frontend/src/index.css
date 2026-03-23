@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.625rem;
+
+    /* RIAB Brand Colors */
+    /* Navy #153A5B -> oklch(0.31 0.068 236) */
+    /* Teal #2AA6A6 -> oklch(0.65 0.1 195) */
+    /* Light gray #F2F4F6 -> oklch(0.97 0.004 240) */
+    /* Body text #5B6772 -> oklch(0.50 0.022 236) */
+
+    --background: 1 0 0;
+    --foreground: 0.31 0.068 236;
+    --card: 1 0 0;
+    --card-foreground: 0.31 0.068 236;
+    --popover: 1 0 0;
+    --popover-foreground: 0.31 0.068 236;
+    --primary: 0.31 0.068 236;
+    --primary-foreground: 0.985 0 0;
+    --secondary: 0.97 0.004 240;
+    --secondary-foreground: 0.31 0.068 236;
+    --muted: 0.97 0.004 240;
+    --muted-foreground: 0.5 0.022 236;
+    --accent: 0.65 0.1 195;
+    --accent-foreground: 1 0 0;
+    --destructive: 0.577 0.245 27.325;
+    --destructive-foreground: 0.985 0 0;
+    --border: 0.9 0.01 240;
+    --input: 0.9 0.01 240;
+    --ring: 0.65 0.1 195;
+    --chart-1: 0.65 0.1 195;
+    --chart-2: 0.31 0.068 236;
+    --chart-3: 0.398 0.07 227.392;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
+    --sidebar: 0.985 0 0;
+    --sidebar-foreground: 0.31 0.068 236;
+    --sidebar-primary: 0.31 0.068 236;
+    --sidebar-primary-foreground: 0.985 0 0;
+    --sidebar-accent: 0.97 0.004 240;
+    --sidebar-accent-foreground: 0.31 0.068 236;
+    --sidebar-border: 0.922 0 0;
+    --sidebar-ring: 0.65 0.1 195;
+
+    /* Brand specific */
+    --navy: 0.31 0.068 236;
+    --navy-dark: 0.22 0.07 236;
+    --teal: 0.65 0.1 195;
+    --teal-dark: 0.55 0.1 195;
+    --gray-light: 0.97 0.004 240;
+    --star-gold: 0.82 0.15 85;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Poppins", sans-serif;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  .bg-navy {
+    background-color: oklch(var(--navy));
+  }
+  .bg-navy-dark {
+    background-color: oklch(var(--navy-dark));
+  }
+  .bg-teal {
+    background-color: oklch(var(--teal));
+  }
+  .bg-teal-dark {
+    background-color: oklch(var(--teal-dark));
+  }
+  .bg-gray-section {
+    background-color: oklch(var(--gray-light));
+  }
+  .text-navy {
+    color: oklch(var(--navy));
+  }
+  .text-teal {
+    color: oklch(var(--teal));
+  }
+  .text-body {
+    color: oklch(var(--muted-foreground));
+  }
+  .text-star {
+    color: oklch(var(--star-gold));
+  }
+  .border-teal {
+    border-color: oklch(var(--teal));
+  }
+  .hover\:bg-teal-dark:hover {
+    background-color: oklch(var(--teal-dark));
+  }
+  .hover\:text-teal:hover {
+    color: oklch(var(--teal));
+  }
+}
