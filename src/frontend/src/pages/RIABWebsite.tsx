@@ -424,8 +424,11 @@ export default function RIABWebsite() {
         message: summary,
       });
       toast.success(
-        "Consultation request submitted! Dr. Mishra will personally review your case and call you within 2 hours.",
+        "Appointment booked! Dr. Mishra will confirm your slot via WhatsApp within 2 hours.",
       );
+      // Send WhatsApp notification to admin
+      const waMsg = `New Appointment Booking!%0AName: ${formData.name}%0APhone: ${formData.phone}%0AAge: ${formData.age}%0AWeight: ${formData.weight}kg%0AHeight: ${formData.height}cm%0AProblem: ${formData.problem}%0ADuration: ${formData.duration}%0APreferred Date: ${formData.preferredDate}%0ACure Method: ${formData.cureMethod}%0APrevious Treatment: ${formData.previousTreatment}`;
+      window.open(`https://wa.me/91${PHONE}?text=${waMsg}`, "_blank");
       setFormData(INITIAL_FORM);
     } catch {
       toast.error(`Failed to submit. Please call us at +91 ${PHONE}.`);
@@ -969,158 +972,12 @@ export default function RIABWebsite() {
         </div>
       </section>
 
-      {/* BLOG */}
-      <section id="blog" className="py-20 bg-white" ref={blogInView.ref}>
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-navy mb-3">
-              Health Blog & Insights
-            </h2>
-            <p className="text-body max-w-xl mx-auto">
-              Expert insights by Dr. Ramesh Chandra Mishra on natural healing,
-              acupuncture science, and managing chronic conditions.
-            </p>
-          </div>
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-            initial={{ opacity: 0 }}
-            animate={blogInView.inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.5 }}
-          >
-            {BLOGS.map((blog, i) => (
-              <motion.article
-                key={blog.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={blogInView.inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                data-ocid={`blog.item.${i + 1}`}
-                className={`bg-white rounded-2xl border border-gray-100 shadow-xs hover:shadow-card transition-shadow overflow-hidden flex flex-col ${
-                  i === 0 ? "md:col-span-2 lg:col-span-1" : ""
-                }`}
-              >
-                <img
-                  src={blog.image}
-                  alt={blog.title}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-6 flex flex-col flex-1">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className="inline-flex items-center gap-1 bg-teal/10 text-teal text-xs font-semibold px-2.5 py-1 rounded-full">
-                      <Tag className="w-3 h-3" />
-                      {blog.category}
-                    </span>
-                    <span className="text-gray-400 text-xs">
-                      {blog.readTime}
-                    </span>
-                  </div>
-                  <h3 className="font-bold text-navy text-base mb-2 leading-snug">
-                    {blog.title}
-                  </h3>
-                  <p className="text-body text-sm mb-4 flex-1">
-                    {blog.summary}
-                  </p>
-                  <div className="flex items-center justify-between mt-auto">
-                    <div className="flex items-center gap-1.5 text-gray-400 text-xs">
-                      <Calendar className="w-3.5 h-3.5" />
-                      {blog.date}
-                    </div>
-                    <button
-                      type="button"
-                      data-ocid={`blog.button.${i + 1}`}
-                      className="text-teal font-semibold text-sm hover:text-teal-dark transition-colors flex items-center gap-1"
-                      onClick={() =>
-                        toast.info(
-                          "Full article coming soon! Follow us on WhatsApp for updates.",
-                        )
-                      }
-                    >
-                      Read More →
-                    </button>
-                  </div>
-                </div>
-              </motion.article>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* REVIEWS */}
-      <section
-        id="reviews"
-        className="py-20 bg-gray-section"
-        ref={reviewsInView.ref}
-      >
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-navy mb-3">
-              What Our Patients Say
-            </h2>
-            <p className="text-body max-w-xl mx-auto">
-              Real experiences from real patients — verified Google reviews from
-              the people Dr. Mishra has helped.
-            </p>
-            <div className="flex items-center justify-center gap-2 mt-4">
-              <GoogleLogo />
-              <span className="text-sm font-semibold text-gray-700">
-                Google Reviews
-              </span>
-              <span className="flex">
-                {[1, 2, 3, 4, 5].map((n) => (
-                  <Star key={n} className="w-4 h-4 fill-current text-star" />
-                ))}
-              </span>
-              <span className="text-sm text-gray-600 font-medium">
-                5.0 (All Reviews)
-              </span>
-            </div>
-          </div>
-          <motion.div
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
-            initial={{ opacity: 0 }}
-            animate={reviewsInView.inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.5 }}
-          >
-            {REVIEWS.map((r, i) => (
-              <motion.div
-                key={r.name}
-                data-ocid={`reviews.item.${i + 1}`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={reviewsInView.inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ delay: i * 0.07, duration: 0.5 }}
-                className="bg-white rounded-2xl p-5 shadow-xs border border-gray-100 hover:shadow-card transition-shadow flex flex-col gap-3"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`w-10 h-10 rounded-full ${r.color} flex items-center justify-center text-white font-bold text-sm`}
-                    >
-                      {r.initial}
-                    </div>
-                    <div>
-                      <p className="font-semibold text-navy text-sm">
-                        {r.name}
-                      </p>
-                      <div className="flex items-center gap-1">
-                        <GoogleLogo />
-                        <span className="text-xs text-gray-400">
-                          Google Review
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <StarRating count={r.rating} />
-                <p className="text-body text-xs leading-relaxed">
-                  &ldquo;{r.text}&rdquo;
-                </p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
       {/* BOOKING FORM */}
-      <section id="booking" className="py-20 bg-white" ref={contactInView.ref}>
+      <section
+        id="booking"
+        className="py-20 bg-gray-section"
+        ref={contactInView.ref}
+      >
         <div className="max-w-5xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -1473,6 +1330,156 @@ export default function RIABWebsite() {
                 </div>
               </form>
             </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* BLOG */}
+      <section id="blog" className="py-20 bg-white" ref={blogInView.ref}>
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-navy mb-3">
+              Health Blog & Insights
+            </h2>
+            <p className="text-body max-w-xl mx-auto">
+              Expert insights by Dr. Ramesh Chandra Mishra on natural healing,
+              acupuncture science, and managing chronic conditions.
+            </p>
+          </div>
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            initial={{ opacity: 0 }}
+            animate={blogInView.inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.5 }}
+          >
+            {BLOGS.map((blog, i) => (
+              <motion.article
+                key={blog.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={blogInView.inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: i * 0.1, duration: 0.5 }}
+                data-ocid={`blog.item.${i + 1}`}
+                className={`bg-white rounded-2xl border border-gray-100 shadow-xs hover:shadow-card transition-shadow overflow-hidden flex flex-col ${
+                  i === 0 ? "md:col-span-2 lg:col-span-1" : ""
+                }`}
+              >
+                <img
+                  src={blog.image}
+                  alt={blog.title}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-6 flex flex-col flex-1">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="inline-flex items-center gap-1 bg-teal/10 text-teal text-xs font-semibold px-2.5 py-1 rounded-full">
+                      <Tag className="w-3 h-3" />
+                      {blog.category}
+                    </span>
+                    <span className="text-gray-400 text-xs">
+                      {blog.readTime}
+                    </span>
+                  </div>
+                  <h3 className="font-bold text-navy text-base mb-2 leading-snug">
+                    {blog.title}
+                  </h3>
+                  <p className="text-body text-sm mb-4 flex-1">
+                    {blog.summary}
+                  </p>
+                  <div className="flex items-center justify-between mt-auto">
+                    <div className="flex items-center gap-1.5 text-gray-400 text-xs">
+                      <Calendar className="w-3.5 h-3.5" />
+                      {blog.date}
+                    </div>
+                    <button
+                      type="button"
+                      data-ocid={`blog.button.${i + 1}`}
+                      className="text-teal font-semibold text-sm hover:text-teal-dark transition-colors flex items-center gap-1"
+                      onClick={() =>
+                        toast.info(
+                          "Full article coming soon! Follow us on WhatsApp for updates.",
+                        )
+                      }
+                    >
+                      Read More →
+                    </button>
+                  </div>
+                </div>
+              </motion.article>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* REVIEWS */}
+      <section
+        id="reviews"
+        className="py-20 bg-gray-section"
+        ref={reviewsInView.ref}
+      >
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-navy mb-3">
+              What Our Patients Say
+            </h2>
+            <p className="text-body max-w-xl mx-auto">
+              Real experiences from real patients — verified Google reviews from
+              the people Dr. Mishra has helped.
+            </p>
+            <div className="flex items-center justify-center gap-2 mt-4">
+              <GoogleLogo />
+              <span className="text-sm font-semibold text-gray-700">
+                Google Reviews
+              </span>
+              <span className="flex">
+                {[1, 2, 3, 4, 5].map((n) => (
+                  <Star key={n} className="w-4 h-4 fill-current text-star" />
+                ))}
+              </span>
+              <span className="text-sm text-gray-600 font-medium">
+                5.0 (All Reviews)
+              </span>
+            </div>
+          </div>
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+            initial={{ opacity: 0 }}
+            animate={reviewsInView.inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.5 }}
+          >
+            {REVIEWS.map((r, i) => (
+              <motion.div
+                key={r.name}
+                data-ocid={`reviews.item.${i + 1}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={reviewsInView.inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: i * 0.07, duration: 0.5 }}
+                className="bg-white rounded-2xl p-5 shadow-xs border border-gray-100 hover:shadow-card transition-shadow flex flex-col gap-3"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={`w-10 h-10 rounded-full ${r.color} flex items-center justify-center text-white font-bold text-sm`}
+                    >
+                      {r.initial}
+                    </div>
+                    <div>
+                      <p className="font-semibold text-navy text-sm">
+                        {r.name}
+                      </p>
+                      <div className="flex items-center gap-1">
+                        <GoogleLogo />
+                        <span className="text-xs text-gray-400">
+                          Google Review
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <StarRating count={r.rating} />
+                <p className="text-body text-xs leading-relaxed">
+                  &ldquo;{r.text}&rdquo;
+                </p>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
